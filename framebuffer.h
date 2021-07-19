@@ -24,9 +24,9 @@
 
 struct rpisense;
 
-struct rpisense_fb {
+struct rpisense_cd {
 	struct platform_device *pdev;
-	struct fb_info *info;
+	struct cdev *c_dev;
 };
 
 #endif

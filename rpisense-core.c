@@ -20,8 +20,10 @@
 #include <linux/init.h>
 #include <linux/i2c.h>
 #include <linux/platform_device.h>
-#include <linux/mfd/rpisense/core.h>
+//#include <linux/mfd/rpisense/core.h>
 #include <linux/slab.h>
+
+#include "core.h"
 
 static struct rpisense *rpisense;
 
@@ -90,7 +92,7 @@ static int rpisense_probe(struct i2c_client *i2c,
 	rpisense_client_dev_register(rpisense, "rpi-sense-js",
 				     &(rpisense->joystick.pdev));
 	rpisense_client_dev_register(rpisense, "rpi-sense-fb",
-				     &(rpisense->framebuffer.pdev));
+				     &(rpisense->char_dev.pdev));
 
 	return 0;
 }
