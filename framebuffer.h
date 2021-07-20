@@ -26,7 +26,7 @@ struct rpisense;
 
 struct rpisense_cd {
 	struct platform_device *pdev;
-	struct cdev *c_dev;
+	struct miscdevice *c_dev;
 };
 
 #endif
