@@ -59,6 +59,7 @@ static struct miscdevice sense_mdev = {
 
 
 struct rpisense_param {
+	char * rdata;
 	char __iomem *vmem;
 	u8 *vmem_work;
 	u32 vmemsize;
@@ -81,12 +82,10 @@ static struct rpisense *rpisense;
 
 static int sense_open(struct inode *inode, struct file *file)
 {
-	/*
-	if ((kernel_buffer = kmalloc(MEM_SIZE, GFP_KERNEL)) == 0) {
-		pr_info("Failed to allocater memory....\n");
+	if ((rpisense_param.rdata = kmalloc(MEM_SIZE, GFP_KERNEL)) == 0) {
+		pr_info("Failed to allocate memory....\n");
 		return -1;
 	}
-	*/
 
         pr_info("Device File Opened...!!!\n");
         return 0;
@@ -95,7 +94,7 @@ static int sense_open(struct inode *inode, struct file *file)
 static int sense_release(struct inode *inode, struct file *file)
 {
 
-	/*  kfree(kernel_buffer);  */
+	kfree(rpisense_param.rdata);  
 
         pr_info("Device File Closed...!!!\n");
         return 0;
@@ -103,14 +102,11 @@ static int sense_release(struct inode *inode, struct file *file)
 
 static ssize_t sense_read(struct file *filp, char __user *buf, size_t len, loff_t *off)
 {
-
-	/*
-
-	if (copy_to_user(buf, kernel_buffer, MEM_SIZE)) {
+	rpisense_block_read(rpisense, rpisense_param.rdata, MEM_SIZE);
+	if (copy_to_user(buf, rpisense_param.rdata, MEM_SIZE)) {
 		pr_err("Error: Data not read.\n");
 	}
 
-	*/
 
         pr_info("Read Function\n");
         return 0;

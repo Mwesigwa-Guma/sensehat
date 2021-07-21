@@ -134,6 +134,16 @@ int rpisense_block_write(struct rpisense *rpisense, const char *buf, int count)
 }
 EXPORT_SYMBOL_GPL(rpisense_block_write);
 
+int rpisense_block_read(struct rpisense *rpisense, char *buf, int count)
+{
+        int ret = i2c_master_recv(rpisense->i2c_client, buf, count);
+
+        if (ret < 0)
+                dev_err(rpisense->dev, "Block read failed\n");
+        return ret;
+}
+EXPORT_SYMBOL_GPL(rpisense_block_read);
+
 static const struct i2c_device_id rpisense_i2c_id[] = {
 	{ "rpi-sense", 0 },
 	{ }
