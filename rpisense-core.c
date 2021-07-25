@@ -92,7 +92,7 @@ static int rpisense_probe(struct i2c_client *i2c,
 	rpisense_client_dev_register(rpisense, "rpi-sense-js",
 				     &(rpisense->joystick.pdev));
 	rpisense_client_dev_register(rpisense, "rpi-sense-fb",
-				     &(rpisense->char_dev.pdev));
+				     &(rpisense->display.pdev));
 
 	return 0;
 }
@@ -143,6 +143,7 @@ int rpisense_block_read(struct rpisense *rpisense, char *buf, int count)
         return ret;
 }
 EXPORT_SYMBOL_GPL(rpisense_block_read);
+
 
 static const struct i2c_device_id rpisense_i2c_id[] = {
 	{ "rpi-sense", 0 },

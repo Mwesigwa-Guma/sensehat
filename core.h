@@ -22,7 +22,7 @@
 */
 
 #include "joystick.h"
-#include "framebuffer.h"
+#include "display.h"
 
 /*
  * Register values.
@@ -41,7 +41,7 @@ struct rpisense {
 
 	/* Client devices */
 	struct rpisense_js joystick;
-	struct rpisense_cd char_dev;
+	struct rpisense_disp display;
 };
 
 struct rpisense *rpisense_get_dev(void);
